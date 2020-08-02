@@ -33,6 +33,7 @@
   "devDependencies": {
     "bn.js": "^4.11.8",
     "chai": "^4.2.0",
+    "gh-pages": "^3.1.0",
     "truffle-assertions": "^0.8.0"
   }
 }

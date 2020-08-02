@@ -1,9 +1,11 @@
 {
   "name": "frontend",
+  "homepage": "https://jeanm1996.github.io/TrackOnBlockChain/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "gh-pages": "^3.1.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8",
@@ -13,6 +15,8 @@
     "web3-react": "^3.0.1"
   },
   "scripts": {
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
