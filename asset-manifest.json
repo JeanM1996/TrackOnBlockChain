@@ -1,15 +1,15 @@
 {
-  "main.css": "/coffeetrack/static/css/main.e20d7b5c.chunk.css",
-  "main.js": "/coffeetrack/static/js/main.7486a6e7.chunk.js",
-  "main.js.map": "/coffeetrack/static/js/main.7486a6e7.chunk.js.map",
-  "runtime~main.js": "/coffeetrack/static/js/runtime~main.e8ea2a5e.js",
-  "runtime~main.js.map": "/coffeetrack/static/js/runtime~main.e8ea2a5e.js.map",
-  "static/css/2.08228282.chunk.css": "/coffeetrack/static/css/2.08228282.chunk.css",
-  "static/js/2.0740ac68.chunk.js": "/coffeetrack/static/js/2.0740ac68.chunk.js",
-  "static/js/2.0740ac68.chunk.js.map": "/coffeetrack/static/js/2.0740ac68.chunk.js.map",
-  "index.html": "/coffeetrack/index.html",
-  "precache-manifest.69d08447d6811d11302981ed5ddc0c2e.js": "/coffeetrack/precache-manifest.69d08447d6811d11302981ed5ddc0c2e.js",
-  "service-worker.js": "/coffeetrack/service-worker.js",
-  "static/css/2.08228282.chunk.css.map": "/coffeetrack/static/css/2.08228282.chunk.css.map",
-  "static/css/main.e20d7b5c.chunk.css.map": "/coffeetrack/static/css/main.e20d7b5c.chunk.css.map"
+  "main.css": "/TrackOnBlockChain/static/css/main.e20d7b5c.chunk.css",
+  "main.js": "/TrackOnBlockChain/static/js/main.b91acabb.chunk.js",
+  "main.js.map": "/TrackOnBlockChain/static/js/main.b91acabb.chunk.js.map",
+  "runtime~main.js": "/TrackOnBlockChain/static/js/runtime~main.cc6f5851.js",
+  "runtime~main.js.map": "/TrackOnBlockChain/static/js/runtime~main.cc6f5851.js.map",
+  "static/css/2.08228282.chunk.css": "/TrackOnBlockChain/static/css/2.08228282.chunk.css",
+  "static/js/2.f284babc.chunk.js": "/TrackOnBlockChain/static/js/2.f284babc.chunk.js",
+  "static/js/2.f284babc.chunk.js.map": "/TrackOnBlockChain/static/js/2.f284babc.chunk.js.map",
+  "index.html": "/TrackOnBlockChain/index.html",
+  "precache-manifest.40ad3212b73d2e2e3fc0ec3bae17caba.js": "/TrackOnBlockChain/precache-manifest.40ad3212b73d2e2e3fc0ec3bae17caba.js",
+  "service-worker.js": "/TrackOnBlockChain/service-worker.js",
+  "static/css/2.08228282.chunk.css.map": "/TrackOnBlockChain/static/css/2.08228282.chunk.css.map",
+  "static/css/main.e20d7b5c.chunk.css.map": "/TrackOnBlockChain/static/css/main.e20d7b5c.chunk.css.map"
 }

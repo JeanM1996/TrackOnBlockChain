@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/coffeetrack/precache-manifest.69d08447d6811d11302981ed5ddc0c2e.js"
+  "/TrackOnBlockChain/precache-manifest.40ad3212b73d2e2e3fc0ec3bae17caba.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/coffeetrack/index.html", {
+workbox.routing.registerNavigationRoute("/TrackOnBlockChain/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
