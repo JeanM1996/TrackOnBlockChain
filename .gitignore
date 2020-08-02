@@ -3,6 +3,7 @@ node_modules
 
 # local secret variables
 .secret
+.infura
 
 # macOS
 .DS_Store
