@@ -5,8 +5,9 @@ import "../roles/FarmerRole.sol";
 import "../roles/DistributorRole.sol";
 import "../roles/ConsumerRole.sol";
 import "../roles/RetailerRole.sol";
+import "../roles/Rolable.sol";
 // Define a contract 'Supplychain'
-contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, ConsumerRole{
+contract SupplyChain is Ownable, Rolable{
 
   // Define 'owner'
   address payable owner;
