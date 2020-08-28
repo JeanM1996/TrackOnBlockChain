@@ -1,15 +1,18 @@
 {
   "main.css": "/TrackOnBlockChain/static/css/main.e20d7b5c.chunk.css",
-  "main.js": "/TrackOnBlockChain/static/js/main.b91acabb.chunk.js",
-  "main.js.map": "/TrackOnBlockChain/static/js/main.b91acabb.chunk.js.map",
+  "main.js": "/TrackOnBlockChain/static/js/main.2a6a0e4b.chunk.js",
+  "main.js.map": "/TrackOnBlockChain/static/js/main.2a6a0e4b.chunk.js.map",
   "runtime~main.js": "/TrackOnBlockChain/static/js/runtime~main.cc6f5851.js",
   "runtime~main.js.map": "/TrackOnBlockChain/static/js/runtime~main.cc6f5851.js.map",
   "static/css/2.08228282.chunk.css": "/TrackOnBlockChain/static/css/2.08228282.chunk.css",
-  "static/js/2.f284babc.chunk.js": "/TrackOnBlockChain/static/js/2.f284babc.chunk.js",
-  "static/js/2.f284babc.chunk.js.map": "/TrackOnBlockChain/static/js/2.f284babc.chunk.js.map",
+  "static/js/2.d2d0cedf.chunk.js": "/TrackOnBlockChain/static/js/2.d2d0cedf.chunk.js",
+  "static/js/2.d2d0cedf.chunk.js.map": "/TrackOnBlockChain/static/js/2.d2d0cedf.chunk.js.map",
   "index.html": "/TrackOnBlockChain/index.html",
-  "precache-manifest.40ad3212b73d2e2e3fc0ec3bae17caba.js": "/TrackOnBlockChain/precache-manifest.40ad3212b73d2e2e3fc0ec3bae17caba.js",
+  "precache-manifest.1e3789041d3e0477250e065ed7bbe4bc.js": "/TrackOnBlockChain/precache-manifest.1e3789041d3e0477250e065ed7bbe4bc.js",
   "service-worker.js": "/TrackOnBlockChain/service-worker.js",
   "static/css/2.08228282.chunk.css.map": "/TrackOnBlockChain/static/css/2.08228282.chunk.css.map",
-  "static/css/main.e20d7b5c.chunk.css.map": "/TrackOnBlockChain/static/css/main.e20d7b5c.chunk.css.map"
+  "static/css/main.e20d7b5c.chunk.css.map": "/TrackOnBlockChain/static/css/main.e20d7b5c.chunk.css.map",
+  "static/media/arqcu.png": "/TrackOnBlockChain/static/media/arqcu.f9e4a226.png",
+  "static/media/arqdapp.png": "/TrackOnBlockChain/static/media/arqdapp.aa21d815.png",
+  "static/media/supplychain.png": "/TrackOnBlockChain/static/media/supplychain.8900fb7d.png"
 }
