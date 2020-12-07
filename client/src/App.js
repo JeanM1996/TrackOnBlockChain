@@ -2,12 +2,13 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import { useWeb3Context } from 'web3-react'
 
-import { Spinner, Alert, Nav, NavItem, NavLink, TabContent, TabPane, Media } from 'reactstrap';
+import { Spinner, Alert, Nav, NavItem, NavLink, TabContent, TabPane} from 'reactstrap';
 import { Box, Flex, Card, Heading, Text, Button, OutlineButton, Input, Textarea, Checkbox, Icon } from 'rimble-ui'
 
 import SupplyChainContractAbi from "./contracts/SupplyChain.json";
 import swal from '@sweetalert/with-react';
-
+import Header from './Components/header';
+import Main from './Components/main';
 let instance = null
 
 
@@ -415,6 +416,7 @@ function App() {
 		return <div className='centered-Loader'><Spinner style={{ width: '10rem', height: '10rem' }} type="grow" color="danger"/></div>
 		
 	}
+	
 	else {
 		
 		if (context.connectorName=="Infura"){
@@ -427,619 +429,826 @@ function App() {
 				</div>
 			  )
 		}else{
-			return (
-				<div>
-				{context.networkId === 4 || context.networkId >= 5 ? 
-					<Alert style={{textAlign: 'center'}} color="success"> 
-					 	Conector Activo: {context.connectorName}, --- Cuenta activa: {context.account},  ---  Id de la Red: {context.networkId}
-					</Alert>
-					:<Alert style={{textAlign: 'center'}} color="danger">
-						Debes conectar tu dirección de wallet con la aplicación empleando MetaMask en la red <b>RINKEBY</b> para poder hacer uso de la aplicación.{context.error}
-					</Alert>
-				}
-				<img class="rounded float-left" style={{width: 200, height: 100}} src={require('./img/utpl.png')} />
-				<img class="rounded float-right" style={{width: 200, height: 100}} src={require('./img/utpl2.png')} />
-				<h2 className="display-4" style={{justifyContent: 'center',textAlign: 'center'}}>Universidad Técnica Particular de Loja</h2>
+			if(context.account=="0xc901805757Fba45083546AAc8A297213bEf5806A"){
+				return (
+								<div>
+								{context.networkId === 4 || context.networkId >= 5 ? 
+									<Alert style={{textAlign: 'center'}} color="success"> 
+										 Conector Activo: {context.connectorName}, --- Cuenta activa: {context.account},  ---  Id de la Red: {context.networkId}
+									</Alert>
+									:<Alert style={{textAlign: 'center'}} color="danger">
+										Debes conectar tu dirección de wallet con la aplicación empleando MetaMask en la red <b>RINKEBY</b> para poder hacer uso de la aplicación.{context.error}
+									</Alert>
+								}
+								<Header/>
 				
-				<h3 className="display-5" style={{justifyContent: 'center',textAlign: 'center'}}><b>Knowledge Based System Research Group</b></h3>
-				<h1 className="display-7" style={{justifyContent: 'center',textAlign: 'center'}}>Marco de trabajo para la aplicación de blockchain en el ámbito agropecuario</h1>
+								<Nav tabs style={{justifyContent: 'center'}}>
+									<NavItem>
+										<NavLink 
+											active={ activeTab === '1' }
+											href='#'
+											onClick={() => { setActiveTab('1')}}
+										>
+											Acerca del Proyecto
+									</NavLink>
+									</NavItem>
+									<NavItem>
+										<NavLink 
+											active={ activeTab === '2' }
+											href='#'
+											onClick={() => { setActiveTab('2')}}
+										>
+											Administración
+										</NavLink>
+									</NavItem>
+				
+				
+									<NavItem>
+										<NavLink 
+											active={ activeTab === '4' }
+											href='#'
+											onClick={() => { setActiveTab('4')}}
+										>
+											Consultar Trazabilidad
+										</NavLink>
+									</NavItem>
+								</Nav>
+				
+								<TabContent activeTab={activeTab}>
+									<TabPane tabId='1'>
+										<Main/>
+									</TabPane>
+				
+									<TabPane tabId='2'>
+										<Box  m={5} p={10}>
+											<Flex style={{justifyContent: 'center'}}>
+												{roles.map(role => (
+													<Box  p={20} key={role.id} Flex>
+														<Icon key={role.id} style={{textAlign: 'center'}} size='30' name={role.isAssgin ? 'Beenhere' : 'Cancel'}/>
+														<Text size='5' style={{textAlign: 'center'}} >{role.role}</Text>
+				
+													</Box>
+													
+												))}
+											</Flex>
+											<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+												<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Roles Asignados a la dirección Actual</Button>
+											</Flex>
+											
+											<Flex style={{justifyContent: 'center'}}>
+												<Card width={[1,1,1/4]} p={3} Flex >
+													<Heading>Añadir Agricultor </Heading>
+													<Text color='red' px={20}>Solo Master Address</Text>
+													<Input type='text' p ={3} m={1} placeholder='new farmer address' name='farmerToBeAdded'/>
+													<Input type='text' p ={3} m={1} placeholder='new farmer name' name='nameFarmer'/>
+													<OutlineButton pt ={1} mt={1} onClick={() => addFarmer()}>Agregar</OutlineButton>
+												</Card>
+											
+				
+												<Card width={[1,1,1/4]} p={3} Flex >
+													<Heading>Añadir Procesador</Heading>
+													<Text color='red' px={20}>Solo Master Address</Text>
+													<Input type='text' p ={3} m={1} placeholder='new processor address' name='processorToBeAdded'/>
+													<Input type='text' p ={3} m={1} placeholder='new processor name' name='nameProcessor'/>
+													<OutlineButton pt ={1} mt={1} onClick={() => addProcessor()}>Agregar</OutlineButton>
+												</Card>
+				
+												<Card width={[1,1,1/4]} p={3} Flex >
+													<Heading>Añadir Consumidor</Heading>
+													<Text color='red' px={20}>Solo Master Address</Text>
+													<Input type='text' p ={3} m={1} placeholder='new manufacturer address' name='consumerToBeAdded'/>
+													<Input type='text' p ={3} m={1} placeholder='new manufacturer name' name='nameConsumer'/>
+													<OutlineButton pt ={1} mt={1} onClick={() => addConsumer()}>Agregar</OutlineButton>
+												</Card>
+				
+												<Card width={[1,1,1/4]} p={3} Flex >
+													<Heading>Añadir Distribuidor</Heading>
+													<Text color='red' px={20}>Solo Master Address</Text>
+													<Input type='text' p ={3} m={1} placeholder='new distributor address' name='distributorToBeAdded'/>
+													<Input type='text' p ={3} m={1} placeholder='new distributor name' name='nameDistributor'/>
+													<OutlineButton pt ={1} mt={1} onClick={() => addDistributor()}>Agregar</OutlineButton>
+												</Card>
+				
+												<Card width={[1,1,1/4]} p={3} Flex >
+													<Heading>Añadir Retailer</Heading>
+													<Text color='red' px={20}>Solo Master Address</Text>
+													<Input type='text' p ={3} m={1} placeholder='new retailer address' name='retailerToBeAdded'/>
+													<Input type='text' p ={3} m={1} placeholder='new retailer name' name='nameRetailer'/>
+													<OutlineButton pt ={1} mt={1} onClick={() => addRetailer()}>Agregar</OutlineButton>
+												</Card>
+											</Flex>
+										</Box>
+									</TabPane>
+				
+				
+				
+				
+									<TabPane tabId='4'>
+										<Box m={10} p={20}>
+											<Flex>
+												<Card>
+													<Heading>Consulta Datos</Heading>
+													<Input type='text' p ={3} m={1} placeholder='Codigo Item UPC' name='upc10'/>
+													<Button size='mediam' p ={3} m={1} onClick={()=> {fetchData1()}}>Consultar Detalles</Button>
+													<Button size='mediam' p ={3} m={1} onClick={()=> {fetchData2()}}>Consultar Trazabilidad</Button>
+					
+				
+				
+												</Card>
+												
+												<Card>
+				
+												{datas.map(data => (
+												<Text.p key ={data.id}>{data}</Text.p>
+												))}
+												
+												</Card>
+												
+				
+												
+											</Flex>
+												{(() => {
+						switch(trackState) {
+							case '0':
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-dark">Maduración</span>
+												<span class="badge badge-pill badge-dark">Cosecha</span>
+												<span class="badge badge-pill badge-dark">Procesamiento</span>
+												<span class="badge badge-pill badge-dark">Empaque</span>
+												<span class="badge badge-pill badge-dark">En venta</span>
+												<span class="badge badge-pill badge-dark">Vendido</span>
+												<span class="badge badge-pill badge-dark">Enviado</span>								
+												<span class="badge badge-pill badge-dark">Recibido</span>
+												<span class="badge badge-pill badge-dark">Registro CF</span>
+											</Card>;
+							case '1':
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-success">Maduración</span>
+												<span class="badge badge-pill badge-dark">Cosecha</span>
+												<span class="badge badge-pill badge-dark">Procesamiento</span>
+												<span class="badge badge-pill badge-dark">Empaque</span>
+												<span class="badge badge-pill badge-dark">En venta</span>
+												<span class="badge badge-pill badge-dark">Vendido</span>
+												<span class="badge badge-pill badge-dark">Enviado</span>								
+												<span class="badge badge-pill badge-dark">Recibido</span>
+												<span class="badge badge-pill badge-dark">Registro CF</span>
+				
+												<span class="badge badge-pill badge-dark">Siembra</span>
+											</Card>;
+							case '2':
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-success">Maduración</span>
+												<span class="badge badge-pill badge-success">Cosecha</span>
+												<span class="badge badge-pill badge-dark">Procesamiento</span>
+												<span class="badge badge-pill badge-dark">Empaque</span>
+												<span class="badge badge-pill badge-dark">En venta</span>
+												<span class="badge badge-pill badge-dark">Vendido</span>
+												<span class="badge badge-pill badge-dark">Enviado</span>								
+												<span class="badge badge-pill badge-dark">Recibido</span>
+												<span class="badge badge-pill badge-dark">Registro CF</span>
+				
+												<span class="badge badge-pill badge-dark">Siembra</span>
+											</Card>;
+							case '3':
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-success">Maduración</span>
+												<span class="badge badge-pill badge-success">Cosecha</span>
+												<span class="badge badge-pill badge-success">Procesamiento</span>
+												<span class="badge badge-pill badge-dark">Empaque</span>
+												<span class="badge badge-pill badge-dark">En venta</span>
+												<span class="badge badge-pill badge-dark">Vendido</span>
+												<span class="badge badge-pill badge-dark">Enviado</span>								
+												<span class="badge badge-pill badge-dark">Recibido</span>
+												<span class="badge badge-pill badge-dark">Registro CF</span>
+				
+											</Card>;
+							case '4':
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-success">Maduración</span>
+												<span class="badge badge-pill badge-success">Cosecha</span>
+												<span class="badge badge-pill badge-success">Procesamiento</span>
+												<span class="badge badge-pill badge-success">Empaque</span>
+												<span class="badge badge-pill badge-dark">En venta</span>
+												<span class="badge badge-pill badge-dark">Vendido</span>
+												<span class="badge badge-pill badge-dark">Enviado</span>								
+												<span class="badge badge-pill badge-dark">Recibido</span>
+												<span class="badge badge-pill badge-dark">Registro CF</span>
+				
+											</Card>;
+							case '5':
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-success">Maduración</span>
+												<span class="badge badge-pill badge-success">Cosecha</span>
+												<span class="badge badge-pill badge-success">Procesamiento</span>
+												<span class="badge badge-pill badge-success">Empaque</span>
+												<span class="badge badge-pill badge-success">En venta</span>
+												<span class="badge badge-pill badge-dark">Vendido</span>
+												<span class="badge badge-pill badge-dark">Enviado</span>								
+												<span class="badge badge-pill badge-dark">Recibido</span>
+												<span class="badge badge-pill badge-dark">Registro CF</span>
+				
+				
+											</Card>;
+							case '6':
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-success">Maduración</span>
+												<span class="badge badge-pill badge-success">Cosecha</span>
+												<span class="badge badge-pill badge-success">Procesamiento</span>
+												<span class="badge badge-pill badge-success">Empaque</span>
+												<span class="badge badge-pill badge-success">En venta</span>
+												<span class="badge badge-pill badge-success">Vendido</span>
+												<span class="badge badge-pill badge-dark">Enviado</span>								
+												<span class="badge badge-pill badge-dark">Recibido</span>
+												<span class="badge badge-pill badge-dark">Registro CF</span>
+				
+											</Card>;
+							case '7':
+							return 							<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-success">Maduración</span>
+												<span class="badge badge-pill badge-success">Cosecha</span>
+												<span class="badge badge-pill badge-success">Procesamiento</span>
+												<span class="badge badge-pill badge-success">Empaque</span>
+												<span class="badge badge-pill badge-success">En venta</span>
+												<span class="badge badge-pill badge-success">Vendido</span>
+												<span class="badge badge-pill badge-success">Enviado</span>								
+												<span class="badge badge-pill badge-dark">Recibido</span>
+												<span class="badge badge-pill badge-dark">Registro CF</span>
+				
+				
+											</Card>;
+							case '8':
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-success">Maduración</span>
+												<span class="badge badge-pill badge-success">Cosecha</span>
+												<span class="badge badge-pill badge-success">Procesamiento</span>
+												<span class="badge badge-pill badge-success">Empaque</span>
+												<span class="badge badge-pill badge-success">En venta</span>
+												<span class="badge badge-pill badge-success">Vendido</span>
+												<span class="badge badge-pill badge-success">Enviado</span>								
+												<span class="badge badge-pill badge-success">Recibido</span>
+												<span class="badge badge-pill badge-dark">Registro CF</span>
+											</Card>;
+							case '9':
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-success">Maduración</span>
+												<span class="badge badge-pill badge-success">Cosecha</span>
+												<span class="badge badge-pill badge-success">Procesamiento</span>
+												<span class="badge badge-pill badge-success">Empaque</span>
+												<span class="badge badge-pill badge-success">En venta</span>
+												<span class="badge badge-pill badge-success">Vendido</span>
+												<span class="badge badge-pill badge-success">Enviado</span>								
+												<span class="badge badge-pill badge-success">Recibido</span>
+												<span class="badge badge-pill badge-success">Registro CF</span>
+				
+				
+											</Card>;												
+							default:
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-dark">Siembra</span>
+												<span class="badge badge-pill badge-dark">Maduración</span>
+												<span class="badge badge-pill badge-dark">Cosecha</span>
+												<span class="badge badge-pill badge-dark">Procesamiento</span>
+												<span class="badge badge-pill badge-dark">Empaque</span>
+												<span class="badge badge-pill badge-dark">En venta</span>
+												<span class="badge badge-pill badge-dark">Vendido</span>
+												<span class="badge badge-pill badge-dark">Enviado</span>								
+												<span class="badge badge-pill badge-dark">Recibido</span>
+				
+											</Card>;
+						}
+												})()}
+										</Box>
+									</TabPane>
+				
+								</TabContent>
+				
+								<Box>
+									<Card  color="green" bg="black" height={'auto'}>
+										<Heading>LOGS:</Heading>
+										{logs.map(logy => (
+												<Text.p key ={logy.id} color='green'>{logy}</Text.p>
+										))}
+										<Heading color="red">ERROR:</Heading>
+										<Text color="red">{errMessage}</Text>
+									</Card>
+								</Box>
+							</div>
+							)
+				}else{
+					return (
+								<div>
+								{context.networkId === 4 || context.networkId >= 5 ? 
+									<Alert style={{textAlign: 'center'}} color="success"> 
+										 Conector Activo: {context.connectorName}, --- Cuenta activa: {context.account},  ---  Id de la Red: {context.networkId}
+									</Alert>
+									:<Alert style={{textAlign: 'center'}} color="danger">
+										Debes conectar tu dirección de wallet con la aplicación empleando MetaMask en la red <b>RINKEBY</b> para poder hacer uso de la aplicación.{context.error}
+									</Alert>
+								}
+								<Header/>
+				
+								<Nav tabs style={{justifyContent: 'center'}}>
+									<NavItem>
+										<NavLink 
+											active={ activeTab === '1' }
+											href='#'
+											onClick={() => { setActiveTab('1')}}
+										>
+											Acerca del Proyecto
+									</NavLink>
+									</NavItem>
 
-
-				<Nav tabs style={{justifyContent: 'center'}}>
-					<NavItem>
-						<NavLink 
-							active={ activeTab === '1' }
-							href='#'
-							onClick={() => { setActiveTab('1')}}
-						>
-							Acerca del Proyecto
-					</NavLink>
-					</NavItem>
-					<NavItem>
-						<NavLink 
-							active={ activeTab === '2' }
-							href='#'
-							onClick={() => { setActiveTab('2')}}
-						>
-							Administración
-						</NavLink>
-					</NavItem>
-					<NavItem>
-						<NavLink 
-							active={ activeTab === '3' }
-							href='#'
-							onClick={() => { setActiveTab('3')}}
-						>
-							Cadena de Suministros del Café
-						</NavLink>
-					</NavItem>
-
-					<NavItem>
-						<NavLink 
-							active={ activeTab === '4' }
-							href='#'
-							onClick={() => { setActiveTab('4')}}
-						>
-							Consultar Trazabilidad
-						</NavLink>
-					</NavItem>
-				</Nav>
-
-
-
-
-
-				<TabContent activeTab={activeTab}>
-					<TabPane tabId='1'>
-						<Box m={5} p={10}>
-							<Card>
-								<h4><b>Autores</b></h4>
-								<ol>
-									<li>Jean Paul Mosquera - <b>jpmosquera1@utpl.edu.ec</b></li>
-									<li>PhD. Nelson Piedra - <b>nopiedra@utpl.edu.ec</b></li>
-								</ol>
-
-							</Card>
-							<Card>
-								<h4><b>Descripción</b></h4>
-								<Text>Este proyecto busca demostrar como sería posible la adopción de tecnología blockchain para lograr la trazabilidad y transparencia en el ámbito agropecuario</Text>
-							</Card>
-							<Card>
-								<h4><b>¿Como integrar blockchain en la Agricultura y ganaderia?</b></h4>
-								<Text>Para la integración de la tecnología blockchain se ha propuesto una metodología que inicia con la definición de producto 
-									y la definición del alcance o caso de uso. Y finaliza con el desarrollo de la aplicación descentralizada que puede visualizarse en la siguiente magen
-								</Text>
-								<Media center>
-									<Media src={require('./img/supplychain.png')} alt="Generic placeholder image" />
-								</Media>
-
-								<Text>Esta aproximación surgió del ánalisis del trabajo propuesto por </Text>
-							</Card>
-							<Card>
-								<h4><b>Arquitectura del Prototipo</b></h4>
-								<Text>Para la definición de la arquitectura del prototipo o caso de aplicación
-									se definió como plataforma blockchain  a la plataforma Ethereum de este modo se analizó
-								    la arquitectura de las aplicaciones descentralizadas que puede observarse en la figura siguiente
-								</Text>
-								<Media center>
-									<Media src={require('./img/arqdapp.png')} alt="Generic placeholder image" />
-								</Media>
-
-								<Text>De este modo se presenta a continuación la arquitectura de la solución propuesta.
-								</Text>
-								<Media center>
-									<Media src={require('./img/arqcu.png')} alt="Generic placeholder image" />
-								</Media>
-
-								<Text>La arquitectura propuesta surgio del análisis del trabajo propuesto por 
-								</Text>
-							</Card>
-						</Box>
-					</TabPane>
-					<TabPane tabId='2'>
-						<Box  m={5} p={10}>
-							<Flex style={{justifyContent: 'center'}}>
-								{roles.map(role => (
-									<Box  p={20} key={role.id} Flex>
-										<Icon key={role.id} style={{textAlign: 'center'}} size='30' name={role.isAssgin ? 'Beenhere' : 'Cancel'}/>
-										<Text size='5' style={{textAlign: 'center'}} >{role.role}</Text>
-
-									</Box>
-									
-								))}
-							</Flex>
-							<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
-								<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Roles Asignados a la dirección Actual</Button>
-							</Flex>
-							
-							<Flex style={{justifyContent: 'center'}}>
-								<Card width={[1,1,1/4]} p={3} Flex >
-									<Heading>Añadir Agricultor </Heading>
-									<Text color='red' px={20}>Solo Master Address</Text>
-									<Input type='text' p ={3} m={1} placeholder='new farmer address' name='farmerToBeAdded'/>
-									<Input type='text' p ={3} m={1} placeholder='new farmer name' name='nameFarmer'/>
-									<OutlineButton pt ={1} mt={1} onClick={() => addFarmer()}>Agregar</OutlineButton>
-								</Card>
-							
-
-								<Card width={[1,1,1/4]} p={3} Flex >
-									<Heading>Añadir Procesador</Heading>
-									<Text color='red' px={20}>Solo Master Address</Text>
-									<Input type='text' p ={3} m={1} placeholder='new processor address' name='processorToBeAdded'/>
-									<Input type='text' p ={3} m={1} placeholder='new processor name' name='nameProcessor'/>
-									<OutlineButton pt ={1} mt={1} onClick={() => addProcessor()}>Agregar</OutlineButton>
-								</Card>
-
-								<Card width={[1,1,1/4]} p={3} Flex >
-									<Heading>Añadir Consumidor</Heading>
-									<Text color='red' px={20}>Solo Master Address</Text>
-									<Input type='text' p ={3} m={1} placeholder='new manufacturer address' name='consumerToBeAdded'/>
-									<Input type='text' p ={3} m={1} placeholder='new manufacturer name' name='nameConsumer'/>
-									<OutlineButton pt ={1} mt={1} onClick={() => addConsumer()}>Agregar</OutlineButton>
-								</Card>
-
-								<Card width={[1,1,1/4]} p={3} Flex >
-									<Heading>Añadir Distribuidor</Heading>
-									<Text color='red' px={20}>Solo Master Address</Text>
-									<Input type='text' p ={3} m={1} placeholder='new distributor address' name='distributorToBeAdded'/>
-									<Input type='text' p ={3} m={1} placeholder='new distributor name' name='nameDistributor'/>
-									<OutlineButton pt ={1} mt={1} onClick={() => addDistributor()}>Agregar</OutlineButton>
-								</Card>
-
-								<Card width={[1,1,1/4]} p={3} Flex >
-									<Heading>Añadir Retailer</Heading>
-									<Text color='red' px={20}>Solo Master Address</Text>
-									<Input type='text' p ={3} m={1} placeholder='new retailer address' name='retailerToBeAdded'/>
-									<Input type='text' p ={3} m={1} placeholder='new retailer name' name='nameRetailer'/>
-									<OutlineButton pt ={1} mt={1} onClick={() => addRetailer()}>Agregar</OutlineButton>
-								</Card>
-							</Flex>
-						</Box>
-					</TabPane>
-
-
-
-					<TabPane tabId='3'>
-						<Nav tabs style={{justifyContent: 'center'}}>
-						<NavItem>
-						<NavLink 
-							active={ activeTab === '10' }
-							href='#'
-							onClick={() => { setActiveTab('10')}}
-						>
-							Siembra, Crecimiento y Cosecha
-						</NavLink>
-						</NavItem>
-
-						<NavItem>
-						<NavLink 
-							active={ activeTab === '20' }
-							href='#'
-							onClick={() => { setActiveTab('20')}}
-						>
-							Procesamiento
-						</NavLink>
-						</NavItem>
-
-						<NavItem>
-						<NavLink 
-							active={ activeTab === '30' }
-							href='#'
-							onClick={() => { setActiveTab('30')}}
-						>
-							Empaque
-						</NavLink>
-						</NavItem>
-	
-						<NavItem>
-						<NavLink 
-							active={ activeTab === '40' }
-							href='#'
-							onClick={() => { setActiveTab('40')}}
-						>
-							Vender
-						</NavLink>
-						</NavItem>
-
-						<NavItem>
-						<NavLink 
-							active={ activeTab === '50' }
-							href='#'
-							onClick={() => { setActiveTab('50')}}
-						>
-							Comprar a Agricultor
-						</NavLink>
-						</NavItem>
-
-						<NavItem>
-						<NavLink 
-							active={ activeTab === '60' }
-							href='#'
-							onClick={() => { setActiveTab('60')}}
-						>
-							Envio y Recepción (Transporte)
-						</NavLink>
-						</NavItem>
-
-						<NavItem>
-						<NavLink 
-							active={ activeTab === '70' }
-							href='#'
-							onClick={() => { setActiveTab('70')}}
-						>
-							Compra Consumidor 
-						</NavLink>
-						</NavItem>
-						</Nav>
-
-					</TabPane>
-
-					<TabPane tabId='4'>
-						<Box m={10} p={20}>
-							<Flex>
-								<Card>
-									<Heading>Consulta Datos</Heading>
-									<Input type='text' p ={3} m={1} placeholder='Codigo Item UPC' name='upc10'/>
-									<Button size='mediam' p ={3} m={1} onClick={()=> {fetchData1()}}>Consultar Detalles</Button>
-									<Button size='mediam' p ={3} m={1} onClick={()=> {fetchData2()}}>Consultar Trazabilidad</Button>
-	
-
-
-								</Card>
+									<NavItem>
+										<NavLink 
+											active={ activeTab === '3' }
+											href='#'
+											onClick={() => { setActiveTab('3')}}
+										>
+											Cadena de Suministros del Café
+										</NavLink>
+									</NavItem>
+				
+									<NavItem>
+										<NavLink 
+											active={ activeTab === '4' }
+											href='#'
+											onClick={() => { setActiveTab('4')}}
+										>
+											Consultar Trazabilidad
+										</NavLink>
+									</NavItem>
+								</Nav>
+				
+								<TabContent activeTab={activeTab}>
+									<TabPane tabId='1'>
+										<Main/>
+									</TabPane>
 								
-								<Card>
-
-								{datas.map(data => (
-								<Text.p key ={data.id}>{data}</Text.p>
-								))}
-								
-								</Card>
-								
-
-								
-							</Flex>
-							    {(() => {
-		switch(trackState) {
-			case '0':
-			return 			<Card style={{textAlign: 'center'}}>
-							
-								<span class="badge badge-pill badge-success">Siembra</span>
-								<span class="badge badge-pill badge-dark">Maduración</span>
-								<span class="badge badge-pill badge-dark">Cosecha</span>
-								<span class="badge badge-pill badge-dark">Procesamiento</span>
-								<span class="badge badge-pill badge-dark">Empaque</span>
-								<span class="badge badge-pill badge-dark">En venta</span>
-								<span class="badge badge-pill badge-dark">Vendido</span>
-								<span class="badge badge-pill badge-dark">Enviado</span>								
-								<span class="badge badge-pill badge-dark">Recibido</span>
-								<span class="badge badge-pill badge-dark">Registro CF</span>
-							</Card>;
-			case '1':
-			return 			<Card style={{textAlign: 'center'}}>
-							
-								<span class="badge badge-pill badge-success">Siembra</span>
-								<span class="badge badge-pill badge-success">Maduración</span>
-								<span class="badge badge-pill badge-dark">Cosecha</span>
-								<span class="badge badge-pill badge-dark">Procesamiento</span>
-								<span class="badge badge-pill badge-dark">Empaque</span>
-								<span class="badge badge-pill badge-dark">En venta</span>
-								<span class="badge badge-pill badge-dark">Vendido</span>
-								<span class="badge badge-pill badge-dark">Enviado</span>								
-								<span class="badge badge-pill badge-dark">Recibido</span>
-								<span class="badge badge-pill badge-dark">Registro CF</span>
-
-								<span class="badge badge-pill badge-dark">Siembra</span>
-							</Card>;
-			case '2':
-			return 			<Card style={{textAlign: 'center'}}>
-							
-								<span class="badge badge-pill badge-success">Siembra</span>
-								<span class="badge badge-pill badge-success">Maduración</span>
-								<span class="badge badge-pill badge-success">Cosecha</span>
-								<span class="badge badge-pill badge-dark">Procesamiento</span>
-								<span class="badge badge-pill badge-dark">Empaque</span>
-								<span class="badge badge-pill badge-dark">En venta</span>
-								<span class="badge badge-pill badge-dark">Vendido</span>
-								<span class="badge badge-pill badge-dark">Enviado</span>								
-								<span class="badge badge-pill badge-dark">Recibido</span>
-								<span class="badge badge-pill badge-dark">Registro CF</span>
-
-								<span class="badge badge-pill badge-dark">Siembra</span>
-							</Card>;
-			case '3':
-			return 			<Card style={{textAlign: 'center'}}>
-							
-								<span class="badge badge-pill badge-success">Siembra</span>
-								<span class="badge badge-pill badge-success">Maduración</span>
-								<span class="badge badge-pill badge-success">Cosecha</span>
-								<span class="badge badge-pill badge-success">Procesamiento</span>
-								<span class="badge badge-pill badge-dark">Empaque</span>
-								<span class="badge badge-pill badge-dark">En venta</span>
-								<span class="badge badge-pill badge-dark">Vendido</span>
-								<span class="badge badge-pill badge-dark">Enviado</span>								
-								<span class="badge badge-pill badge-dark">Recibido</span>
-								<span class="badge badge-pill badge-dark">Registro CF</span>
-
-							</Card>;
-			case '4':
-			return 			<Card style={{textAlign: 'center'}}>
-							
-								<span class="badge badge-pill badge-success">Siembra</span>
-								<span class="badge badge-pill badge-success">Maduración</span>
-								<span class="badge badge-pill badge-success">Cosecha</span>
-								<span class="badge badge-pill badge-success">Procesamiento</span>
-								<span class="badge badge-pill badge-success">Empaque</span>
-								<span class="badge badge-pill badge-dark">En venta</span>
-								<span class="badge badge-pill badge-dark">Vendido</span>
-								<span class="badge badge-pill badge-dark">Enviado</span>								
-								<span class="badge badge-pill badge-dark">Recibido</span>
-								<span class="badge badge-pill badge-dark">Registro CF</span>
-
-							</Card>;
-			case '5':
-			return 			<Card style={{textAlign: 'center'}}>
-							
-								<span class="badge badge-pill badge-success">Siembra</span>
-								<span class="badge badge-pill badge-success">Maduración</span>
-								<span class="badge badge-pill badge-success">Cosecha</span>
-								<span class="badge badge-pill badge-success">Procesamiento</span>
-								<span class="badge badge-pill badge-success">Empaque</span>
-								<span class="badge badge-pill badge-success">En venta</span>
-								<span class="badge badge-pill badge-dark">Vendido</span>
-								<span class="badge badge-pill badge-dark">Enviado</span>								
-								<span class="badge badge-pill badge-dark">Recibido</span>
-								<span class="badge badge-pill badge-dark">Registro CF</span>
-
-
-							</Card>;
-			case '6':
-			return 			<Card style={{textAlign: 'center'}}>
-							
-								<span class="badge badge-pill badge-success">Siembra</span>
-								<span class="badge badge-pill badge-success">Maduración</span>
-								<span class="badge badge-pill badge-success">Cosecha</span>
-								<span class="badge badge-pill badge-success">Procesamiento</span>
-								<span class="badge badge-pill badge-success">Empaque</span>
-								<span class="badge badge-pill badge-success">En venta</span>
-								<span class="badge badge-pill badge-success">Vendido</span>
-								<span class="badge badge-pill badge-dark">Enviado</span>								
-								<span class="badge badge-pill badge-dark">Recibido</span>
-								<span class="badge badge-pill badge-dark">Registro CF</span>
-
-							</Card>;
-			case '7':
-			return 							<Card style={{textAlign: 'center'}}>
-							
-								<span class="badge badge-pill badge-success">Siembra</span>
-								<span class="badge badge-pill badge-success">Maduración</span>
-								<span class="badge badge-pill badge-success">Cosecha</span>
-								<span class="badge badge-pill badge-success">Procesamiento</span>
-								<span class="badge badge-pill badge-success">Empaque</span>
-								<span class="badge badge-pill badge-success">En venta</span>
-								<span class="badge badge-pill badge-success">Vendido</span>
-								<span class="badge badge-pill badge-success">Enviado</span>								
-								<span class="badge badge-pill badge-dark">Recibido</span>
-								<span class="badge badge-pill badge-dark">Registro CF</span>
-
-
-							</Card>;
-			case '8':
-			return 			<Card style={{textAlign: 'center'}}>
-							
-								<span class="badge badge-pill badge-success">Siembra</span>
-								<span class="badge badge-pill badge-success">Maduración</span>
-								<span class="badge badge-pill badge-success">Cosecha</span>
-								<span class="badge badge-pill badge-success">Procesamiento</span>
-								<span class="badge badge-pill badge-success">Empaque</span>
-								<span class="badge badge-pill badge-success">En venta</span>
-								<span class="badge badge-pill badge-success">Vendido</span>
-								<span class="badge badge-pill badge-success">Enviado</span>								
-								<span class="badge badge-pill badge-success">Recibido</span>
-								<span class="badge badge-pill badge-dark">Registro CF</span>
-							</Card>;
-			case '9':
-			return 			<Card style={{textAlign: 'center'}}>
-							
-								<span class="badge badge-pill badge-success">Siembra</span>
-								<span class="badge badge-pill badge-success">Maduración</span>
-								<span class="badge badge-pill badge-success">Cosecha</span>
-								<span class="badge badge-pill badge-success">Procesamiento</span>
-								<span class="badge badge-pill badge-success">Empaque</span>
-								<span class="badge badge-pill badge-success">En venta</span>
-								<span class="badge badge-pill badge-success">Vendido</span>
-								<span class="badge badge-pill badge-success">Enviado</span>								
-								<span class="badge badge-pill badge-success">Recibido</span>
-								<span class="badge badge-pill badge-success">Registro CF</span>
-
-
-							</Card>;												
-			default:
-			return 			<Card style={{textAlign: 'center'}}>
-							
-								<span class="badge badge-pill badge-dark">Siembra</span>
-								<span class="badge badge-pill badge-dark">Maduración</span>
-								<span class="badge badge-pill badge-dark">Cosecha</span>
-								<span class="badge badge-pill badge-dark">Procesamiento</span>
-								<span class="badge badge-pill badge-dark">Empaque</span>
-								<span class="badge badge-pill badge-dark">En venta</span>
-								<span class="badge badge-pill badge-dark">Vendido</span>
-								<span class="badge badge-pill badge-dark">Enviado</span>								
-								<span class="badge badge-pill badge-dark">Recibido</span>
-
-							</Card>;
-		}
-								})()}
-						</Box>
-					</TabPane>
-
-					<TabPane tabId='10'>
-						<Box m={10} p={20}>
-							<Card>
-							<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
-								<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
-							</Flex>
-								<Flex>
-								<Card width={[1,1,1/3]} mx={'auto'} px={3} pt={20} Flex >
-									<Heading>Registrar Siembra</Heading>
-									<Text color='red' px={20}>Solo Agricultor </Text> 
-									<Input type='number' p ={3} m={1} placeholder='Codigo Item UPC' name='upc' />
-									<Input type='text' p ={3} m={1} placeholder='Nombre del Agricultor' name='farmerName' />
-									<Input type='text' p ={3} m={1} placeholder='Nombre de la Finca' name='farmName'/>
-									<Input type='text' p ={3} m={1} placeholder='Latitud' name='latitudFarm'/>
-									<Input type='text' p ={3} m={1} placeholder='Longitud' name='longitudeFarm'/>
-									<Textarea rows='2' width={[1,1,1]} p={3} m={1} placeholder='Detalles' name='detailsF' />
-									<OutlineButton p ={3} m={1} onClick={() => addSiembra()}>Registrar</OutlineButton>
-								</Card>
-								<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
-									<Heading>Registrar Maduración </Heading>
-									<Text color='red' px={20}>Solo Agricultor</Text>
-									<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc1'/>
-									<p/>
-									<OutlineButton pt ={3} mt={1} onClick={()=> {addMaduracion()}}>Registrar </OutlineButton>
-								</Card>	
-								<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
-									<Heading>Registrar Cosecha </Heading>
-									<Text color='red' px={20}>Solo Agricultor</Text>
-									<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc2'/>
-									<p/>
-									<OutlineButton pt ={3} mt={1} onClick={()=> {addCosecha()}}>Registrar </OutlineButton>
-								</Card>	
-							</Flex>
-							</Card>
-						</Box>
-					</TabPane>
-					<TabPane tabId='20'>
-						<Box m={10} p={20}>
-						<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
-								<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
-							</Flex>
-							<Card>
-								<Flex>
-
-								<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
-									<Heading>Registrar Procesamiento </Heading>
-									<Text color='red' px={20}>Solo Agricultor</Text>
-									<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc3'/>
-									<p/>
-									<OutlineButton pt ={3} mt={1} onClick={()=> {addProcesamiento()}}>Registrar </OutlineButton>
-								</Card>	
-							</Flex>
-							</Card>
-						</Box>
-					</TabPane>
-					<TabPane tabId='30'>
-						<Box m={10} p={20}>
-							<Card>
-							<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
-								<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
-							</Flex>
-								<Flex>
-								<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
-									<Heading>Registrar Empaque </Heading>
-									<Text color='red' px={20}>Solo Agricultor</Text>
-									<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc4'/>
-									<p/>
-									<OutlineButton pt ={3} mt={1} onClick={()=> {addEmpaque()}}>Registrar </OutlineButton>
-								</Card>	
-							</Flex>
-							</Card>
-						</Box>
-					</TabPane>
-					<TabPane tabId='40'>
-						<Box m={10} p={20}>
-							<Card>
-							<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
-								<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
-							</Flex>
-								<Flex>
-								<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
-									<Heading>Disponer Para venta </Heading>
-									<Text color='red' px={20}>Solo Agricultor</Text>
-									<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc5'/>
-									<Input type='int' p ={3} m={1} placeholder='Costo en ETH' name='ethPrice'/>
-									<p/>
-									<OutlineButton pt ={3} mt={1} onClick={()=> {addVenta()}}>Registrar </OutlineButton>
-								</Card>	
-							</Flex>
-							</Card>
-						</Box>
-					</TabPane>
-					<TabPane tabId='50'>
-						<Box m={10} p={20}>
-							<Card>
-							<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
-								<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
-							</Flex>
-								<Flex>
-								<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
-									<Heading>Comprar Item</Heading>
-									<Text color='red' px={20}>Solo Distribuidor</Text>
-									<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc6'/>
-									<Input type='int' p ={3} m={1} placeholder='Eth Price Value' name='ethPrice1'/>
-									<p/>
-									<OutlineButton pt ={3} mt={1} onClick={()=> {addCompra()}}>Registrar </OutlineButton>
-								</Card>	
-							</Flex>
-							</Card>
-						</Box>
-					</TabPane>
-					<TabPane tabId='60'>
-						<Box m={10} p={20}>
-							<Card>
-							<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
-								<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
-							</Flex>
-								<Flex>
-								<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
-									<Heading>Registrar Envio</Heading>
-									<Text color='red' px={20}>Solo Distribuidor</Text>
-									<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc7'/>
-									<p/>
-									<OutlineButton pt ={3} mt={1} onClick={()=> {addEnvio()}}>Registrar </OutlineButton>
-								</Card>	
-
-								<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
-									<Heading>Registrar Recepcion</Heading>
-									<Text color='red' px={20}>Solo Retailer</Text>
-									<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc8'/>
-									<p/>
-									<OutlineButton pt ={3} mt={1} onClick={()=> {addRecepcion()}}>Registrar </OutlineButton>
-								</Card>	
-							</Flex>
-							</Card>
-						</Box>
-						
-					</TabPane>
-
-					<TabPane tabId='70'>
-					<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
-								<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
-							</Flex>
-								<Flex>
-								<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
-									<Heading>Registrar Venta en Tienda </Heading>
-									<Text color='red' px={20}>Solo Consumidor</Text>
-									<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc9'/>
-									<p/>
-									<OutlineButton pt ={3} mt={1} onClick={()=> {addCompraCliente()}}>Registrar </OutlineButton>
-								</Card>	
-	
-							</Flex>
-					</TabPane>
-				</TabContent>
-
-				<Box>
-					<Card  color="green" bg="black" height={'auto'}>
-						<Heading>LOGS:</Heading>
-						{logs.map(logy => (
-								<Text.p key ={logy.id} color='green'>{logy}</Text.p>
-						))}
-						<Heading color="red">ERROR:</Heading>
-						<Text color="red">{errMessage}</Text>
-					</Card>
-				</Box>
-			</div>
-			)}
+				
+									<TabPane tabId='3'>
+										<Nav tabs style={{justifyContent: 'center'}}>
+										<NavItem>
+										<NavLink 
+											active={ activeTab === '10' }
+											href='#'
+											onClick={() => { setActiveTab('10')}}
+										>
+											Siembra, Crecimiento y Cosecha
+										</NavLink>
+										</NavItem>
+				
+										<NavItem>
+										<NavLink 
+											active={ activeTab === '20' }
+											href='#'
+											onClick={() => { setActiveTab('20')}}
+										>
+											Procesamiento
+										</NavLink>
+										</NavItem>
+				
+										<NavItem>
+										<NavLink 
+											active={ activeTab === '30' }
+											href='#'
+											onClick={() => { setActiveTab('30')}}
+										>
+											Empaque
+										</NavLink>
+										</NavItem>
+					
+										<NavItem>
+										<NavLink 
+											active={ activeTab === '40' }
+											href='#'
+											onClick={() => { setActiveTab('40')}}
+										>
+											Vender
+										</NavLink>
+										</NavItem>
+				
+										<NavItem>
+										<NavLink 
+											active={ activeTab === '50' }
+											href='#'
+											onClick={() => { setActiveTab('50')}}
+										>
+											Comprar a Agricultor
+										</NavLink>
+										</NavItem>
+				
+										<NavItem>
+										<NavLink 
+											active={ activeTab === '60' }
+											href='#'
+											onClick={() => { setActiveTab('60')}}
+										>
+											Envio y Recepción (Transporte)
+										</NavLink>
+										</NavItem>
+				
+										<NavItem>
+										<NavLink 
+											active={ activeTab === '70' }
+											href='#'
+											onClick={() => { setActiveTab('70')}}
+										>
+											Compra Consumidor 
+										</NavLink>
+										</NavItem>
+										</Nav>
+				
+									</TabPane>
+				
+									<TabPane tabId='4'>
+										<Box m={10} p={20}>
+											<Flex>
+												<Card>
+													<Heading>Consulta Datos</Heading>
+													<Input type='text' p ={3} m={1} placeholder='Codigo Item UPC' name='upc10'/>
+													<Button size='mediam' p ={3} m={1} onClick={()=> {fetchData1()}}>Consultar Detalles</Button>
+													<Button size='mediam' p ={3} m={1} onClick={()=> {fetchData2()}}>Consultar Trazabilidad</Button>
+					
+				
+				
+												</Card>
+												
+												<Card>
+				
+												{datas.map(data => (
+												<Text.p key ={data.id}>{data}</Text.p>
+												))}
+												
+												</Card>
+												
+				
+												
+											</Flex>
+												{(() => {
+						switch(trackState) {
+							case '0':
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-dark">Maduración</span>
+												<span class="badge badge-pill badge-dark">Cosecha</span>
+												<span class="badge badge-pill badge-dark">Procesamiento</span>
+												<span class="badge badge-pill badge-dark">Empaque</span>
+												<span class="badge badge-pill badge-dark">En venta</span>
+												<span class="badge badge-pill badge-dark">Vendido</span>
+												<span class="badge badge-pill badge-dark">Enviado</span>								
+												<span class="badge badge-pill badge-dark">Recibido</span>
+												<span class="badge badge-pill badge-dark">Registro CF</span>
+											</Card>;
+							case '1':
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-success">Maduración</span>
+												<span class="badge badge-pill badge-dark">Cosecha</span>
+												<span class="badge badge-pill badge-dark">Procesamiento</span>
+												<span class="badge badge-pill badge-dark">Empaque</span>
+												<span class="badge badge-pill badge-dark">En venta</span>
+												<span class="badge badge-pill badge-dark">Vendido</span>
+												<span class="badge badge-pill badge-dark">Enviado</span>								
+												<span class="badge badge-pill badge-dark">Recibido</span>
+												<span class="badge badge-pill badge-dark">Registro CF</span>
+				
+												<span class="badge badge-pill badge-dark">Siembra</span>
+											</Card>;
+							case '2':
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-success">Maduración</span>
+												<span class="badge badge-pill badge-success">Cosecha</span>
+												<span class="badge badge-pill badge-dark">Procesamiento</span>
+												<span class="badge badge-pill badge-dark">Empaque</span>
+												<span class="badge badge-pill badge-dark">En venta</span>
+												<span class="badge badge-pill badge-dark">Vendido</span>
+												<span class="badge badge-pill badge-dark">Enviado</span>								
+												<span class="badge badge-pill badge-dark">Recibido</span>
+												<span class="badge badge-pill badge-dark">Registro CF</span>
+				
+												<span class="badge badge-pill badge-dark">Siembra</span>
+											</Card>;
+							case '3':
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-success">Maduración</span>
+												<span class="badge badge-pill badge-success">Cosecha</span>
+												<span class="badge badge-pill badge-success">Procesamiento</span>
+												<span class="badge badge-pill badge-dark">Empaque</span>
+												<span class="badge badge-pill badge-dark">En venta</span>
+												<span class="badge badge-pill badge-dark">Vendido</span>
+												<span class="badge badge-pill badge-dark">Enviado</span>								
+												<span class="badge badge-pill badge-dark">Recibido</span>
+												<span class="badge badge-pill badge-dark">Registro CF</span>
+				
+											</Card>;
+							case '4':
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-success">Maduración</span>
+												<span class="badge badge-pill badge-success">Cosecha</span>
+												<span class="badge badge-pill badge-success">Procesamiento</span>
+												<span class="badge badge-pill badge-success">Empaque</span>
+												<span class="badge badge-pill badge-dark">En venta</span>
+												<span class="badge badge-pill badge-dark">Vendido</span>
+												<span class="badge badge-pill badge-dark">Enviado</span>								
+												<span class="badge badge-pill badge-dark">Recibido</span>
+												<span class="badge badge-pill badge-dark">Registro CF</span>
+				
+											</Card>;
+							case '5':
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-success">Maduración</span>
+												<span class="badge badge-pill badge-success">Cosecha</span>
+												<span class="badge badge-pill badge-success">Procesamiento</span>
+												<span class="badge badge-pill badge-success">Empaque</span>
+												<span class="badge badge-pill badge-success">En venta</span>
+												<span class="badge badge-pill badge-dark">Vendido</span>
+												<span class="badge badge-pill badge-dark">Enviado</span>								
+												<span class="badge badge-pill badge-dark">Recibido</span>
+												<span class="badge badge-pill badge-dark">Registro CF</span>
+				
+				
+											</Card>;
+							case '6':
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-success">Maduración</span>
+												<span class="badge badge-pill badge-success">Cosecha</span>
+												<span class="badge badge-pill badge-success">Procesamiento</span>
+												<span class="badge badge-pill badge-success">Empaque</span>
+												<span class="badge badge-pill badge-success">En venta</span>
+												<span class="badge badge-pill badge-success">Vendido</span>
+												<span class="badge badge-pill badge-dark">Enviado</span>								
+												<span class="badge badge-pill badge-dark">Recibido</span>
+												<span class="badge badge-pill badge-dark">Registro CF</span>
+				
+											</Card>;
+							case '7':
+							return 							<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-success">Maduración</span>
+												<span class="badge badge-pill badge-success">Cosecha</span>
+												<span class="badge badge-pill badge-success">Procesamiento</span>
+												<span class="badge badge-pill badge-success">Empaque</span>
+												<span class="badge badge-pill badge-success">En venta</span>
+												<span class="badge badge-pill badge-success">Vendido</span>
+												<span class="badge badge-pill badge-success">Enviado</span>								
+												<span class="badge badge-pill badge-dark">Recibido</span>
+												<span class="badge badge-pill badge-dark">Registro CF</span>
+				
+				
+											</Card>;
+							case '8':
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-success">Maduración</span>
+												<span class="badge badge-pill badge-success">Cosecha</span>
+												<span class="badge badge-pill badge-success">Procesamiento</span>
+												<span class="badge badge-pill badge-success">Empaque</span>
+												<span class="badge badge-pill badge-success">En venta</span>
+												<span class="badge badge-pill badge-success">Vendido</span>
+												<span class="badge badge-pill badge-success">Enviado</span>								
+												<span class="badge badge-pill badge-success">Recibido</span>
+												<span class="badge badge-pill badge-dark">Registro CF</span>
+											</Card>;
+							case '9':
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-success">Siembra</span>
+												<span class="badge badge-pill badge-success">Maduración</span>
+												<span class="badge badge-pill badge-success">Cosecha</span>
+												<span class="badge badge-pill badge-success">Procesamiento</span>
+												<span class="badge badge-pill badge-success">Empaque</span>
+												<span class="badge badge-pill badge-success">En venta</span>
+												<span class="badge badge-pill badge-success">Vendido</span>
+												<span class="badge badge-pill badge-success">Enviado</span>								
+												<span class="badge badge-pill badge-success">Recibido</span>
+												<span class="badge badge-pill badge-success">Registro CF</span>
+				
+				
+											</Card>;												
+							default:
+							return 			<Card style={{textAlign: 'center'}}>
+											
+												<span class="badge badge-pill badge-dark">Siembra</span>
+												<span class="badge badge-pill badge-dark">Maduración</span>
+												<span class="badge badge-pill badge-dark">Cosecha</span>
+												<span class="badge badge-pill badge-dark">Procesamiento</span>
+												<span class="badge badge-pill badge-dark">Empaque</span>
+												<span class="badge badge-pill badge-dark">En venta</span>
+												<span class="badge badge-pill badge-dark">Vendido</span>
+												<span class="badge badge-pill badge-dark">Enviado</span>								
+												<span class="badge badge-pill badge-dark">Recibido</span>
+				
+											</Card>;
+						}
+												})()}
+										</Box>
+									</TabPane>
+				
+									<TabPane tabId='10'>
+										<Box m={10} p={20}>
+											<Card>
+											<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+												<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
+											</Flex>
+												<Flex>
+												<Card width={[1,1,1/3]} mx={'auto'} px={3} pt={20} Flex >
+													<Heading>Registrar Siembra</Heading>
+													<Text color='red' px={20}>Solo Agricultor </Text> 
+													<Input type='number' p ={3} m={1} placeholder='Codigo Item UPC' name='upc' />
+													<Input type='text' p ={3} m={1} placeholder='Nombre del Agricultor' name='farmerName' />
+													<Input type='text' p ={3} m={1} placeholder='Nombre de la Finca' name='farmName'/>
+													<Input type='text' p ={3} m={1} placeholder='Latitud' name='latitudFarm'/>
+													<Input type='text' p ={3} m={1} placeholder='Longitud' name='longitudeFarm'/>
+													<Textarea rows='2' width={[1,1,1]} p={3} m={1} placeholder='Detalles' name='detailsF' />
+													<OutlineButton p ={3} m={1} onClick={() => addSiembra()}>Registrar</OutlineButton>
+												</Card>
+												<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
+													<Heading>Registrar Maduración </Heading>
+													<Text color='red' px={20}>Solo Agricultor</Text>
+													<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc1'/>
+													<p/>
+													<OutlineButton pt ={3} mt={1} onClick={()=> {addMaduracion()}}>Registrar </OutlineButton>
+												</Card>	
+												<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
+													<Heading>Registrar Cosecha </Heading>
+													<Text color='red' px={20}>Solo Agricultor</Text>
+													<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc2'/>
+													<p/>
+													<OutlineButton pt ={3} mt={1} onClick={()=> {addCosecha()}}>Registrar </OutlineButton>
+												</Card>	
+											</Flex>
+											</Card>
+										</Box>
+									</TabPane>
+									<TabPane tabId='20'>
+										<Box m={10} p={20}>
+										<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+												<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
+											</Flex>
+											<Card>
+												<Flex>
+				
+												<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
+													<Heading>Registrar Procesamiento </Heading>
+													<Text color='red' px={20}>Solo Agricultor</Text>
+													<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc3'/>
+													<p/>
+													<OutlineButton pt ={3} mt={1} onClick={()=> {addProcesamiento()}}>Registrar </OutlineButton>
+												</Card>	
+											</Flex>
+											</Card>
+										</Box>
+									</TabPane>
+									<TabPane tabId='30'>
+										<Box m={10} p={20}>
+											<Card>
+											<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+												<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
+											</Flex>
+												<Flex>
+												<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
+													<Heading>Registrar Empaque </Heading>
+													<Text color='red' px={20}>Solo Agricultor</Text>
+													<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc4'/>
+													<p/>
+													<OutlineButton pt ={3} mt={1} onClick={()=> {addEmpaque()}}>Registrar </OutlineButton>
+												</Card>	
+											</Flex>
+											</Card>
+										</Box>
+									</TabPane>
+									<TabPane tabId='40'>
+										<Box m={10} p={20}>
+											<Card>
+											<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+												<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
+											</Flex>
+												<Flex>
+												<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
+													<Heading>Disponer Para venta </Heading>
+													<Text color='red' px={20}>Solo Agricultor</Text>
+													<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc5'/>
+													<Input type='int' p ={3} m={1} placeholder='Costo en ETH' name='ethPrice'/>
+													<p/>
+													<OutlineButton pt ={3} mt={1} onClick={()=> {addVenta()}}>Registrar </OutlineButton>
+												</Card>	
+											</Flex>
+											</Card>
+										</Box>
+									</TabPane>
+									<TabPane tabId='50'>
+										<Box m={10} p={20}>
+											<Card>
+											<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+												<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
+											</Flex>
+												<Flex>
+												<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
+													<Heading>Comprar Item</Heading>
+													<Text color='red' px={20}>Solo Distribuidor</Text>
+													<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc6'/>
+													<Input type='int' p ={3} m={1} placeholder='Eth Price Value' name='ethPrice1'/>
+													<p/>
+													<OutlineButton pt ={3} mt={1} onClick={()=> {addCompra()}}>Registrar </OutlineButton>
+												</Card>	
+											</Flex>
+											</Card>
+										</Box>
+									</TabPane>
+									<TabPane tabId='60'>
+										<Box m={10} p={20}>
+											<Card>
+											<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+												<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
+											</Flex>
+												<Flex>
+												<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
+													<Heading>Registrar Envio</Heading>
+													<Text color='red' px={20}>Solo Distribuidor</Text>
+													<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc7'/>
+													<p/>
+													<OutlineButton pt ={3} mt={1} onClick={()=> {addEnvio()}}>Registrar </OutlineButton>
+												</Card>	
+				
+												<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
+													<Heading>Registrar Recepcion</Heading>
+													<Text color='red' px={20}>Solo Retailer</Text>
+													<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc8'/>
+													<p/>
+													<OutlineButton pt ={3} mt={1} onClick={()=> {addRecepcion()}}>Registrar </OutlineButton>
+												</Card>	
+											</Flex>
+											</Card>
+										</Box>
+										
+									</TabPane>
+				
+									<TabPane tabId='70'>
+									<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+												<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
+											</Flex>
+												<Flex>
+												<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
+													<Heading>Registrar Venta en Tienda </Heading>
+													<Text color='red' px={20}>Solo Consumidor</Text>
+													<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc9'/>
+													<p/>
+													<OutlineButton pt ={3} mt={1} onClick={()=> {addCompraCliente()}}>Registrar </OutlineButton>
+												</Card>	
+					
+											</Flex>
+									</TabPane>
+								</TabContent>
+				
+								<Box>
+									<Card  color="green" bg="black" height={'auto'}>
+										<Heading>LOGS:</Heading>
+										{logs.map(logy => (
+												<Text.p key ={logy.id} color='green'>{logy}</Text.p>
+										))}
+										<Heading color="red">ERROR:</Heading>
+										<Text color="red">{errMessage}</Text>
+									</Card>
+								</Box>
+							</div>
+							)
+				}
+			}
 	}
 }
 
