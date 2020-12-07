@@ -1,7 +1,7 @@
 {
-  "name": "drug-supply-chain",
+  "name": "coffee-supply-chain",
   "version": "0.0.1",
-  "description": "Ethereum smart contracts for drug supply chin to orgnize desining and distrbuting drugs globaly ",
+  "description": "Ethereum smart contracts for coffe production supply chain to organized desining and distrbuting coffee globaly ",
   "main": ".",
   "directories": {
     "test": "test"
@@ -20,12 +20,12 @@
     "supplychain",
     "smartcontract"
   ],
-  "author": "Khalid F. Shuhail <dev.khalid@me.com>",
+  "author": "Jean Mosquera <jpmosquera1@utpl.edu.ec>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/khalidfsh/drug-supply-chain/issues"
+    "url": "https://github.com/JeanM1996/TrackOnBlockChain/issues"
   },
-  "homepage": "https://github.com/khalidfsh/drug-supply-chain#readme",
+  "homepage": "https://github.com/JeanM1996/TrackOnBlockChain#readme",
   "dependencies": {
     "openzeppelin-solidity": "2.1.3",
     "truffle-hdwallet-provider": "^1.0.5"

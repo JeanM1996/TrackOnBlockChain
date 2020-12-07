@@ -2,10 +2,11 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import { useWeb3Context } from 'web3-react'
 
-import { Spinner, Alert, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
+import { Spinner, Alert, Nav, NavItem, NavLink, TabContent, TabPane, Media } from 'reactstrap';
 import { Box, Flex, Card, Heading, Text, Button, OutlineButton, Input, Textarea, Checkbox, Icon } from 'rimble-ui'
 
 import SupplyChainContractAbi from "./contracts/SupplyChain.json";
+import swal from '@sweetalert/with-react';
 
 let instance = null
 
@@ -361,7 +362,7 @@ function App() {
 		let newLogEvent ='|-----|Event:' + eventName + '(' + eventValueName + ': ' + eventValue + ' )'
 		let tmpArr=[]
 		tmpArr.push(newLogHash,newLogEvent)
-		alert(tmpArr)
+		swal(tmpArr)
 		updatedLogs.push(newLogHash,newLogEvent, ...logs)
 		setLogs(updatedLogs)
 	}
@@ -375,7 +376,7 @@ function App() {
 		for (var i = (numberOfData/2); i<numberOfData; i++) {
 			logy += dataKeys[i] + ': ' + _logObject[dataKeys[i]] +', '
 		}	
-		alert(logy)
+		swal(logy)
 		updatedLogs.push(logy, ...logs)
 		setLogs(updatedLogs)
 	}
@@ -412,16 +413,28 @@ function App() {
 	//states
 	if (isLoading) {
 		return <div className='centered-Loader'><Spinner style={{ width: '10rem', height: '10rem' }} type="grow" color="danger"/></div>
+		
 	}
 	else {
-		return (
-			<div>
+		
+		if (context.connectorName=="Infura"){
+			swal(
+				<div>
+				  <h1>Necesitas <b>Metamask</b> </h1>        
+				  <p>Por favor para poder usar la aplicación instala metamask</p>
+				  <a href="https://metamask.io/download.html" target="_blank">Instalar Metamask</a> 
+				  <p>Una vez instalado regresa y recarga la pagina</p>
+				</div>
+			  )
+		}else{
+			return (
+				<div>
 				{context.networkId === 4 || context.networkId >= 5 ? 
 					<Alert style={{textAlign: 'center'}} color="success"> 
 					 	Conector Activo: {context.connectorName}, --- Cuenta activa: {context.account},  ---  Id de la Red: {context.networkId}
 					</Alert>
 					:<Alert style={{textAlign: 'center'}} color="danger">
-						Debes conectar tu dirección de wallet con la aplicación empleando MetaMask para poder hacer uso de .{context.error}
+						Debes conectar tu dirección de wallet con la aplicación empleando MetaMask en la red <b>RINKEBY</b> para poder hacer uso de la aplicación.{context.error}
 					</Alert>
 				}
 				<img class="rounded float-left" style={{width: 200, height: 100}} src={require('./img/utpl.png')} />
@@ -490,7 +503,36 @@ function App() {
 							<Card>
 								<h4><b>Descripción</b></h4>
 								<Text>Este proyecto busca demostrar como sería posible la adopción de tecnología blockchain para lograr la trazabilidad y transparencia en el ámbito agropecuario</Text>
+							</Card>
+							<Card>
+								<h4><b>¿Como integrar blockchain en la Agricultura y ganaderia?</b></h4>
+								<Text>Para la integración de la tecnología blockchain se ha propuesto una metodología que inicia con la definición de producto 
+									y la definición del alcance o caso de uso. Y finaliza con el desarrollo de la aplicación descentralizada que puede visualizarse en la siguiente magen
+								</Text>
+								<Media center>
+									<Media src={require('./img/supplychain.png')} alt="Generic placeholder image" />
+								</Media>
 
+								<Text>Esta aproximación surgió del ánalisis del trabajo propuesto por </Text>
+							</Card>
+							<Card>
+								<h4><b>Arquitectura del Prototipo</b></h4>
+								<Text>Para la definición de la arquitectura del prototipo o caso de aplicación
+									se definió como plataforma blockchain  a la plataforma Ethereum de este modo se analizó
+								    la arquitectura de las aplicaciones descentralizadas que puede observarse en la figura siguiente
+								</Text>
+								<Media center>
+									<Media src={require('./img/arqdapp.png')} alt="Generic placeholder image" />
+								</Media>
+
+								<Text>De este modo se presenta a continuación la arquitectura de la solución propuesta.
+								</Text>
+								<Media center>
+									<Media src={require('./img/arqcu.png')} alt="Generic placeholder image" />
+								</Media>
+
+								<Text>La arquitectura propuesta surgio del análisis del trabajo propuesto por 
+								</Text>
 							</Card>
 						</Box>
 					</TabPane>
@@ -833,6 +875,9 @@ function App() {
 					<TabPane tabId='10'>
 						<Box m={10} p={20}>
 							<Card>
+							<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+								<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
+							</Flex>
 								<Flex>
 								<Card width={[1,1,1/3]} mx={'auto'} px={3} pt={20} Flex >
 									<Heading>Registrar Siembra</Heading>
@@ -865,6 +910,9 @@ function App() {
 					</TabPane>
 					<TabPane tabId='20'>
 						<Box m={10} p={20}>
+						<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+								<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
+							</Flex>
 							<Card>
 								<Flex>
 
@@ -882,6 +930,9 @@ function App() {
 					<TabPane tabId='30'>
 						<Box m={10} p={20}>
 							<Card>
+							<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+								<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
+							</Flex>
 								<Flex>
 								<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
 									<Heading>Registrar Empaque </Heading>
@@ -897,6 +948,9 @@ function App() {
 					<TabPane tabId='40'>
 						<Box m={10} p={20}>
 							<Card>
+							<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+								<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
+							</Flex>
 								<Flex>
 								<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
 									<Heading>Disponer Para venta </Heading>
@@ -913,6 +967,9 @@ function App() {
 					<TabPane tabId='50'>
 						<Box m={10} p={20}>
 							<Card>
+							<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+								<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
+							</Flex>
 								<Flex>
 								<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
 									<Heading>Comprar Item</Heading>
@@ -929,6 +986,9 @@ function App() {
 					<TabPane tabId='60'>
 						<Box m={10} p={20}>
 							<Card>
+							<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+								<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
+							</Flex>
 								<Flex>
 								<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
 									<Heading>Registrar Envio</Heading>
@@ -952,6 +1012,9 @@ function App() {
 					</TabPane>
 
 					<TabPane tabId='70'>
+					<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+								<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
+							</Flex>
 								<Flex>
 								<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
 									<Heading>Registrar Venta en Tienda </Heading>
@@ -976,7 +1039,7 @@ function App() {
 					</Card>
 				</Box>
 			</div>
-		)
+			)}
 	}
 }
 
