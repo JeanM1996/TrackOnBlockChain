@@ -4,7 +4,7 @@ import { useWeb3Context } from 'web3-react'
 
 import { Spinner, Alert, Nav, NavItem, NavLink, TabContent, TabPane} from 'reactstrap';
 import { Box, Flex, Card, Heading, Text, Button, OutlineButton, Input, Textarea, Checkbox, Icon } from 'rimble-ui'
-
+import {Container, Row,Col} from 'react-bootstrap'
 import SupplyChainContractAbi from "./contracts/SupplyChain.json";
 import swal from '@sweetalert/with-react';
 import Header from './Components/header';
@@ -491,52 +491,59 @@ function App() {
 													
 												))}
 											</Flex>
-											<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
-												<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Roles Asignados a la dirección Actual</Button>
-											</Flex>
-											
-											<Flex style={{justifyContent: 'center'}}>
-												<Card width={[1,1,1/4]} p={3} Flex >
-													<Heading>Añadir Agricultor </Heading>
-													<Text color='red' px={20}>Solo Master Address</Text>
-													<Input type='text' p ={3} m={1} placeholder='new farmer address' name='farmerToBeAdded'/>
-													<Input type='text' p ={3} m={1} placeholder='new farmer name' name='nameFarmer'/>
-													<OutlineButton pt ={1} mt={1} onClick={() => addFarmer()}>Agregar</OutlineButton>
-												</Card>
-											
-				
-												<Card width={[1,1,1/4]} p={3} Flex >
-													<Heading>Añadir Procesador</Heading>
-													<Text color='red' px={20}>Solo Master Address</Text>
-													<Input type='text' p ={3} m={1} placeholder='new processor address' name='processorToBeAdded'/>
-													<Input type='text' p ={3} m={1} placeholder='new processor name' name='nameProcessor'/>
-													<OutlineButton pt ={1} mt={1} onClick={() => addProcessor()}>Agregar</OutlineButton>
-												</Card>
-				
-												<Card width={[1,1,1/4]} p={3} Flex >
-													<Heading>Añadir Consumidor</Heading>
-													<Text color='red' px={20}>Solo Master Address</Text>
-													<Input type='text' p ={3} m={1} placeholder='new manufacturer address' name='consumerToBeAdded'/>
-													<Input type='text' p ={3} m={1} placeholder='new manufacturer name' name='nameConsumer'/>
-													<OutlineButton pt ={1} mt={1} onClick={() => addConsumer()}>Agregar</OutlineButton>
-												</Card>
-				
-												<Card width={[1,1,1/4]} p={3} Flex >
+
+											<Container>
+												<Row className="justify-content-md-center">
+													<Col>											
+														<Card  p={3} Flex >
+															<Heading>Añadir Agricultor </Heading>
+															<Text color='red' >Solo Master Address</Text>
+															<Input type='text' placeholder='new farmer address' name='farmerToBeAdded'/>
+															<Input type='text'  placeholder='new farmer name' name='nameFarmer'/>
+															<OutlineButton pt ={1} mt={1} onClick={() => addFarmer()}>Agregar</OutlineButton>
+														</Card>
+													</Col>
+													<Col>
+														<Card  p={3} Flex >
+															<Heading>Añadir Procesador</Heading>
+															<Text color='red' >Solo Master Address</Text>
+															<Input type='text'  placeholder='new processor address' name='processorToBeAdded'/>
+															<Input type='text'  placeholder='new processor name' name='nameProcessor'/>
+															<OutlineButton pt ={1} mt={1} onClick={() => addProcessor()}>Agregar</OutlineButton>
+														</Card>
+													</Col>
+													<Col>
+														<Card  p={3} Flex >
+															<Heading>Añadir Consumidor</Heading>
+															<Text color='red' >Solo Master Address</Text>
+															<Input type='text'  placeholder='new manufacturer address' name='consumerToBeAdded'/>
+															<Input type='text' placeholder='new manufacturer name' name='nameConsumer'/>
+															<OutlineButton pt ={1} mt={1} onClick={() => addConsumer()}>Agregar</OutlineButton>
+														</Card>
+													</Col>
+												</Row>
+												<Row className="justify-content-md-center">
+												<Col>
+												<Card  p={3} Flex >
 													<Heading>Añadir Distribuidor</Heading>
-													<Text color='red' px={20}>Solo Master Address</Text>
-													<Input type='text' p ={3} m={1} placeholder='new distributor address' name='distributorToBeAdded'/>
-													<Input type='text' p ={3} m={1} placeholder='new distributor name' name='nameDistributor'/>
+													<Text color='red' >Solo Master Address</Text>
+													<Input type='text'  placeholder='new distributor address' name='distributorToBeAdded'/>
+													<Input type='text' placeholder='new distributor name' name='nameDistributor'/>
 													<OutlineButton pt ={1} mt={1} onClick={() => addDistributor()}>Agregar</OutlineButton>
 												</Card>
-				
-												<Card width={[1,1,1/4]} p={3} Flex >
-													<Heading>Añadir Retailer</Heading>
-													<Text color='red' px={20}>Solo Master Address</Text>
-													<Input type='text' p ={3} m={1} placeholder='new retailer address' name='retailerToBeAdded'/>
-													<Input type='text' p ={3} m={1} placeholder='new retailer name' name='nameRetailer'/>
-													<OutlineButton pt ={1} mt={1} onClick={() => addRetailer()}>Agregar</OutlineButton>
-												</Card>
-											</Flex>
+												</Col>
+												<Col/>
+												<Col>
+													<Card p={3} Flex >
+														<Heading>Añadir Retailer</Heading>
+														<Text color='red' >Solo Master Address</Text>
+														<Input type='text'  placeholder='new retailer address' name='retailerToBeAdded'/>
+														<Input type='text' placeholder='new retailer name' name='nameRetailer'/>
+														<OutlineButton pt ={1} mt={1} onClick={() => addRetailer()}>Agregar</OutlineButton>
+													</Card>
+												</Col>
+											</Row>
+											</Container>
 										</Box>
 									</TabPane>
 				
@@ -545,28 +552,31 @@ function App() {
 				
 									<TabPane tabId='4'>
 										<Box m={10} p={20}>
-											<Flex>
-												<Card>
-													<Heading>Consulta Datos</Heading>
-													<Input type='text' p ={3} m={1} placeholder='Codigo Item UPC' name='upc10'/>
-													<Button size='mediam' p ={3} m={1} onClick={()=> {fetchData1()}}>Consultar Detalles</Button>
-													<Button size='mediam' p ={3} m={1} onClick={()=> {fetchData2()}}>Consultar Trazabilidad</Button>
+											<Container>
+												<Row className="justify-content-md-center">
+													<Col>
+														<Card>
+															<Heading>Consulta Datos</Heading>
+															<Input type='text' p ={3} m={1} placeholder='Codigo Item UPC' name='upc10'/>
+															<Button size='mediam' p ={3} m={1} onClick={()=> {fetchData1()}}>Consultar Detalles</Button>
+															<Button size='mediam' p ={3} m={1} onClick={()=> {fetchData2()}}>Consultar Trazabilidad</Button>
+							
+						
+						
+														</Card>
+													</Col>
+													<Col>
+														<Card>
+						
+														{datas.map(data => (
+														<Text.p key ={data.id}>{data}</Text.p>
+														))}
+														
+														</Card>
+													</Col>
+												</Row>
 					
-				
-				
-												</Card>
-												
-												<Card>
-				
-												{datas.map(data => (
-												<Text.p key ={data.id}>{data}</Text.p>
-												))}
-												
-												</Card>
-												
-				
-												
-											</Flex>
+											</Container>
 												{(() => {
 						switch(trackState) {
 							case '0':
@@ -883,28 +893,32 @@ function App() {
 				
 									<TabPane tabId='4'>
 										<Box m={10} p={20}>
-											<Flex>
-												<Card>
-													<Heading>Consulta Datos</Heading>
-													<Input type='text' p ={3} m={1} placeholder='Codigo Item UPC' name='upc10'/>
-													<Button size='mediam' p ={3} m={1} onClick={()=> {fetchData1()}}>Consultar Detalles</Button>
-													<Button size='mediam' p ={3} m={1} onClick={()=> {fetchData2()}}>Consultar Trazabilidad</Button>
-					
+											<Container>
+												<Row className="justify-content-md-center">
+													<Col>
+														<Card>
+															<Heading>Consulta Datos</Heading>
+															<Input type='text' p ={3} m={1} placeholder='Codigo Item UPC' name='upc10'/>
+															<Button size='mediam' p ={3} m={1} onClick={()=> {fetchData1()}}>Consultar Detalles</Button>
+															<Button size='mediam' p ={3} m={1} onClick={()=> {fetchData2()}}>Consultar Trazabilidad</Button>
+							
+						
+						
+														</Card>
+													</Col>
+													<Col>
+														<Card>
+						
+														{datas.map(data => (
+														<Text.p key ={data.id}>{data}</Text.p>
+														))}
+														
+														</Card>
+													</Col>
+												</Row>
 				
-				
-												</Card>
 												
-												<Card>
-				
-												{datas.map(data => (
-												<Text.p key ={data.id}>{data}</Text.p>
-												))}
-												
-												</Card>
-												
-				
-												
-											</Flex>
+											</Container>
 												{(() => {
 						switch(trackState) {
 							case '0':
@@ -1081,157 +1095,188 @@ function App() {
 				
 									<TabPane tabId='10'>
 										<Box m={10} p={20}>
-											<Card>
-											<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+										<Container>	
+											<Row className="justify-content-md-center">
 												<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
-											</Flex>
-												<Flex>
-												<Card width={[1,1,1/3]} mx={'auto'} px={3} pt={20} Flex >
-													<Heading>Registrar Siembra</Heading>
-													<Text color='red' px={20}>Solo Agricultor </Text> 
-													<Input type='number' p ={3} m={1} placeholder='Codigo Item UPC' name='upc' />
-													<Input type='text' p ={3} m={1} placeholder='Nombre del Agricultor' name='farmerName' />
-													<Input type='text' p ={3} m={1} placeholder='Nombre de la Finca' name='farmName'/>
-													<Input type='text' p ={3} m={1} placeholder='Latitud' name='latitudFarm'/>
-													<Input type='text' p ={3} m={1} placeholder='Longitud' name='longitudeFarm'/>
-													<Textarea rows='2' width={[1,1,1]} p={3} m={1} placeholder='Detalles' name='detailsF' />
-													<OutlineButton p ={3} m={1} onClick={() => addSiembra()}>Registrar</OutlineButton>
-												</Card>
-												<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
-													<Heading>Registrar Maduración </Heading>
-													<Text color='red' px={20}>Solo Agricultor</Text>
-													<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc1'/>
-													<p/>
-													<OutlineButton pt ={3} mt={1} onClick={()=> {addMaduracion()}}>Registrar </OutlineButton>
-												</Card>	
-												<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
-													<Heading>Registrar Cosecha </Heading>
-													<Text color='red' px={20}>Solo Agricultor</Text>
-													<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc2'/>
-													<p/>
-													<OutlineButton pt ={3} mt={1} onClick={()=> {addCosecha()}}>Registrar </OutlineButton>
-												</Card>	
-											</Flex>
-											</Card>
+											</Row>
+											
+												<Row>
+													<Col >
+														<Card width={'100%'} mx={'auto'} px={3} pt={20} Flex >
+															<Heading>Registrar Siembra</Heading>
+															<Text color='red' px={20}>Solo Agricultor </Text> 
+															<Input type='number' p ={3} m={1} placeholder='Codigo Item UPC' name='upc' />
+															<Input type='text' p ={3} m={1} placeholder='Nombre del Agricultor' name='farmerName' />
+															<Input type='text' p ={3} m={1} placeholder='Nombre de la Finca' name='farmName'/>
+															<Input type='text' p ={3} m={1} placeholder='Latitud' name='latitudFarm'/>
+															<Input type='text' p ={3} m={1} placeholder='Longitud' name='longitudeFarm'/>
+															<Textarea rows='2' width={[1,1,1]} p={3} m={1} placeholder='Detalles' name='detailsF' />
+															<OutlineButton p ={3} m={1} onClick={() => addSiembra()}>Registrar</OutlineButton>
+														</Card>
+													</Col>
+													<Col>
+														<Card width={"100%"} mx={'auto'} px={3} pt={20} Flex >
+															<Heading>Registrar Maduración </Heading>
+															<Text color='red' px={20}>Solo Agricultor</Text>
+															<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc1'/>
+															<p/>
+															<OutlineButton pt ={3} mt={1} onClick={()=> {addMaduracion()}}>Registrar </OutlineButton>
+														</Card>	
+													</Col>
+													<Col>
+														<Card width={"100%"} mx={'auto'} px={3} pt={20} Flex >
+															<Heading>Registrar Cosecha </Heading>
+															<Text color='red' px={20}>Solo Agricultor</Text>
+															<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc2'/>
+															<p/>
+															<OutlineButton pt ={3} mt={1} onClick={()=> {addCosecha()}}>Registrar </OutlineButton>
+														</Card>	
+													</Col>
+											</Row>
+										</Container>
 										</Box>
 									</TabPane>
 									<TabPane tabId='20'>
 										<Box m={10} p={20}>
-										<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+										<Container>
+											<Row className="justify-content-md-center">
 												<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
-											</Flex>
-											<Card>
-												<Flex>
-				
-												<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
+											</Row>
+											<Row className="justify-content-md-center">
+												<Col/>
+												<Col>
+												<Card  mx={'auto'} px={3} pt={20} Flex >
 													<Heading>Registrar Procesamiento </Heading>
-													<Text color='red' px={20}>Solo Agricultor</Text>
-													<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc3'/>
+													<Text color='red' >Solo Agricultor</Text>
+													<Input type='int'  placeholder='Codigo Item UPC' name='upc3'/>
 													<p/>
 													<OutlineButton pt ={3} mt={1} onClick={()=> {addProcesamiento()}}>Registrar </OutlineButton>
 												</Card>	
-											</Flex>
-											</Card>
+												</Col>
+												<Col/>
+											</Row>
+										</Container>
 										</Box>
 									</TabPane>
 									<TabPane tabId='30'>
 										<Box m={10} p={20}>
-											<Card>
-											<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+										<Container>
+											<Row className="justify-content-md-center">
 												<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
-											</Flex>
-												<Flex>
-												<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
-													<Heading>Registrar Empaque </Heading>
-													<Text color='red' px={20}>Solo Agricultor</Text>
-													<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc4'/>
-													<p/>
-													<OutlineButton pt ={3} mt={1} onClick={()=> {addEmpaque()}}>Registrar </OutlineButton>
-												</Card>	
-											</Flex>
-											</Card>
+											</Row>
+											<Row className="justify-content-md-center">
+												<Col/>
+												<Col>
+													<Card  mx={'auto'} px={3} pt={20} Flex >
+														<Heading>Registrar Empaque </Heading>
+														<Text color='red' >Solo Agricultor</Text>
+														<Input type='int'  placeholder='Codigo Item UPC' name='upc4'/>
+														<p/>
+														<OutlineButton pt ={3} mt={1} onClick={()=> {addEmpaque()}}>Registrar </OutlineButton>
+													</Card>	
+												</Col>
+												<Col/>
+											</Row>
+											</Container>
 										</Box>
 									</TabPane>
 									<TabPane tabId='40'>
 										<Box m={10} p={20}>
-											<Card>
-											<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+											<Container>
+											<Row className="justify-content-md-center">
 												<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
-											</Flex>
-												<Flex>
-												<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
-													<Heading>Disponer Para venta </Heading>
-													<Text color='red' px={20}>Solo Agricultor</Text>
-													<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc5'/>
-													<Input type='int' p ={3} m={1} placeholder='Costo en ETH' name='ethPrice'/>
-													<p/>
-													<OutlineButton pt ={3} mt={1} onClick={()=> {addVenta()}}>Registrar </OutlineButton>
-												</Card>	
-											</Flex>
-											</Card>
+											</Row>
+											<Row className="justify-content-md-center">
+												<Col/>
+												<Col>
+													<Card  mx={'auto'} px={3} pt={20} Flex >
+														<Heading>Disponer Para venta </Heading>
+														<Text color='red' >Solo Agricultor</Text>
+														<Input type='int' placeholder='Codigo Item UPC' name='upc5'/>
+														<Input type='int'  placeholder='Costo en ETH' name='ethPrice'/>
+														<p/>
+														<OutlineButton pt ={3} mt={1} onClick={()=> {addVenta()}}>Registrar </OutlineButton>
+													</Card>	
+												</Col>
+												<Col/>
+											</Row>
+											</Container>
 										</Box>
 									</TabPane>
 									<TabPane tabId='50'>
 										<Box m={10} p={20}>
-											<Card>
-											<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+											<Container>
+											<Row className="justify-content-md-center">
 												<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
-											</Flex>
-												<Flex>
-												<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
-													<Heading>Comprar Item</Heading>
-													<Text color='red' px={20}>Solo Distribuidor</Text>
-													<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc6'/>
-													<Input type='int' p ={3} m={1} placeholder='Eth Price Value' name='ethPrice1'/>
-													<p/>
-													<OutlineButton pt ={3} mt={1} onClick={()=> {addCompra()}}>Registrar </OutlineButton>
-												</Card>	
-											</Flex>
-											</Card>
+											</Row>
+												<Row className="justify-content-md-center">
+													<Col/>
+													<Col>
+														<Card mx={'auto'} px={3} pt={20} Flex >
+															<Heading>Comprar Item</Heading>
+															<Text color='red' >Solo Distribuidor</Text>
+															<Input type='int' placeholder='Codigo Item UPC' name='upc6'/>
+															<Input type='int' placeholder='Eth Price Value' name='ethPrice1'/>
+															<p/>
+															<OutlineButton pt ={3} mt={1} onClick={()=> {addCompra()}}>Registrar </OutlineButton>
+														</Card>	
+													</Col>
+													<Col/>
+											</Row>
+											</Container>
 										</Box>
 									</TabPane>
 									<TabPane tabId='60'>
 										<Box m={10} p={20}>
-											<Card>
-											<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+											<Container>
+											<Row className="justify-content-md-center">
 												<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
-											</Flex>
-												<Flex>
-												<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
+											</Row>
+												<Row className="justify-content-md-center">
+												<Col>
+												<Card  mx={'auto'} px={3} pt={20} Flex >
 													<Heading>Registrar Envio</Heading>
-													<Text color='red' px={20}>Solo Distribuidor</Text>
-													<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc7'/>
+													<Text color='red' >Solo Distribuidor</Text>
+													<Input type='int' placeholder='Codigo Item UPC' name='upc7'/>
 													<p/>
 													<OutlineButton pt ={3} mt={1} onClick={()=> {addEnvio()}}>Registrar </OutlineButton>
 												</Card>	
-				
-												<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
+												</Col>
+												<Col/>
+												<Col>
+												<Card  mx={'auto'} px={3} pt={20} Flex >
 													<Heading>Registrar Recepcion</Heading>
-													<Text color='red' px={20}>Solo Retailer</Text>
-													<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc8'/>
+													<Text color='red' >Solo Retailer</Text>
+													<Input type='int' placeholder='Codigo Item UPC' name='upc8'/>
 													<p/>
 													<OutlineButton pt ={3} mt={1} onClick={()=> {addRecepcion()}}>Registrar </OutlineButton>
 												</Card>	
-											</Flex>
-											</Card>
+												</Col>
+											</Row>
+											</Container>
 										</Box>
 										
 									</TabPane>
 				
 									<TabPane tabId='70'>
-									<Flex style={{justifyContent: 'center'}}  m={10} p={20}>
+										<Container>
+											<Row className="justify-content-md-center">
 												<Button p ={3} m={1} Flex  size='large' onClick={() => currentAccountRoles()}>Verificar Roles de dirección</Button>
-											</Flex>
-												<Flex>
-												<Card width={[1,1,1/4]} mx={'auto'} px={3} pt={20} Flex >
-													<Heading>Registrar Venta en Tienda </Heading>
-													<Text color='red' px={20}>Solo Consumidor</Text>
-													<Input type='int' p ={3} m={1} placeholder='Codigo Item UPC' name='upc9'/>
-													<p/>
-													<OutlineButton pt ={3} mt={1} onClick={()=> {addCompraCliente()}}>Registrar </OutlineButton>
-												</Card>	
-					
-											</Flex>
+											</Row>
+											<Row className="justify-content-md-center">
+												<Col/>
+												<Col>
+													<Card  mx={'auto'} px={3} pt={20} Flex >
+														<Heading>Registrar Venta en Tienda </Heading>
+														<Text color='red' >Solo Consumidor</Text>
+														<Input type='int'placeholder='Codigo Item UPC' name='upc9'/>
+														<p/>
+														<OutlineButton pt ={3} mt={1} onClick={()=> {addCompraCliente()}}>Registrar </OutlineButton>
+													</Card>	
+												</Col>
+												<Col/>
+											</Row>
+										</Container>
 									</TabPane>
 								</TabContent>
 				
